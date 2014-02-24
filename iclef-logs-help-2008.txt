@@ -1,0 +1,413 @@
+------------------------------------------------------------------------------
+ iCLEF 2008 Logs Help file
+
+ Version: 2.0
+ Date: June 16, 2008
+ Contact: iclef@lsi.uned.es
+------------------------------------------------------------------------------
+
+Logs capture all the information relevant to user interaction with the search 
+interface. Each line has five different fields, separated by "|", and looks 
+like the following: 
+
+  time in ASCII format|username|session ID|method/functionality|message returned or additional information about the method/functionality
+
+
+---------------
+ SOME EXAMPLES
+---------------
+
+1) successful registration:
+
+  Tue May 20 15:41:54 2008|Chemnitz_/_Chemnitz__U._Tech_-_Comp.Sci_user_2|NjDh5AF2JXi05l5|register|succes
+
+
+2) successful login:
+
+  Tue May 20 15:41:56 2008|Chemnitz_/_Chemnitz__U._Tech_-_Comp.Sci_user_2||login2|success
+
+
+3) user's profile data successfully retrieved by the interface:
+
+  Tue May 20 15:41:56 2008|Chemnitz_/_Chemnitz__U._Tech_-_Comp.Sci_user_2|NjDh5AF2JXi05l5|getUserInfo|success
+
+
+4) a new search session is created and a new target image is assigned:
+
+  Tue May 20 15:41:56 2008|Chemnitz_/_Chemnitz__U._Tech_-_Comp.Sci_user_2|NjDh5AF2JXi05l5|getTargetImg|new ActiveSearch created photoid 7983304
+  Tue May 20 15:41:56 2008|Chemnitz_/_Chemnitz__U._Tech_-_Comp.Sci_user_2|NjDh5AF2JXi05l5|getTargetImg|success photoid 7983304
+
+
+5) a monolingual search in launched and retrieved from the system's cache. Note 
+that time is stopped while querying the database:
+
+  Tue May 20 15:41:59 2008|Other_user_12|u8ygLdcq7yGK121|search|launch query 'big ben' (100:20)
+  Tue May 20 15:41:59 2008|Other_user_12|u8ygLdcq7yGK121|pauseTime|time set on pause
+  Tue May 20 15:41:59 2008|Other_user_12|u8ygLdcq7yGK121|search|500 results retrieved from QueryCache
+  Tue May 20 15:42:00 2008||u8ygLdcq7yGK121|playTime|time set on play mode
+
+6) a cross-language search from Spanish to other available languages (each 
+language is denoted by a number, see the mapping below) is launched and retrieved 
+from Flickr's database. Again, time is stopped while querying:
+
+  Tue May 20 15:45:54 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|pauseTime|time set on pause
+  Tue May 20 15:45:54 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|clsearch|launch query 'saltando naranja' (0:20)
+  Tue May 20 15:45:54 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|clsearch|tokens:saltando, naranja
+
+Initial query is tokenized and every single query term is stemmed and looked up 
+in the system's dictionaries. Translations and suggestions for each query term 
+are ordered according to 1) Flickr's related terms and; 2) preferences from 
+users' personal dictionaries:
+
+  Tue May 20 15:45:54 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|clsearch|translations and suggestions for 'saltando' 2->0|sprung|
+  Tue May 20 15:45:54 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|clsearch|translations and suggestions updated with PersonalDict 'saltando'||
+  Tue May 20 15:45:54 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|clsearch|translations and suggestions for 'saltando' 2->1|jump jumping|startle jump start leap bound spring bulge bulk leaping bounce jumping
+  Tue May 20 15:45:54 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|clsearch|translations and suggestions updated with PersonalDict 'saltando'||
+  Tue May 20 15:45:54 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|clsearch|translations and suggestions for 'saltando' 2->3|saut|
+  Tue May 20 15:45:54 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|clsearch|translations and suggestions updated with PersonalDict 'saltando'||
+  Tue May 20 15:45:54 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|clsearch|translations and suggestions for 'saltando' 2->4|salto|balzo lancio saltare
+  Tue May 20 15:45:54 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|clsearch|translations and suggestions updated with PersonalDict 'saltando'||
+  Tue May 20 15:45:54 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|clsearch|translations and suggestions for 'saltando' 2->5|sprong|
+  Tue May 20 15:45:54 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|clsearch|translations and suggestions updated with PersonalDict 'saltando'||
+  Tue May 20 15:45:54 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|clsearch|translations and suggestions for 'naranja' 2->0|orange|apfelsine
+  Tue May 20 15:45:54 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|clsearch|translations and suggestions updated with PersonalDict 'naranja'||
+  Tue May 20 15:45:54 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|clsearch|translations and suggestions for 'naranja' 2->1|orange|orangeness orange orange tree
+  Tue May 20 15:45:54 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|clsearch|translations and suggestions updated with PersonalDict 'naranja'||
+  Tue May 20 15:45:54 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|clsearch|translations and suggestions for 'naranja' 2->3|orange|
+  Tue May 20 15:45:54 2008|Other_user_12|u8ygLdcq7yGK121|search|500 results retrieved from QueryCache
+  Tue May 20 15:45:54 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|clsearch|translations and suggestions updated with PersonalDict 'naranja'||
+  Tue May 20 15:45:54 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|clsearch|translations and suggestions for 'naranja' 2->4|arancia|arancio arancione
+  Tue May 20 15:45:54 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|clsearch|translations and suggestions updated with PersonalDict 'naranja'||
+  Tue May 20 15:45:54 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|clsearch|translations and suggestions for 'naranja' 2->5|sinaasappel|
+  Tue May 20 15:45:54 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|clsearch|translations and suggestions updated with PersonalDict 'naranja'||
+
+  
+The final query is structured using Flickr syntax (boolean query), as in:
+
+  Tue May 20 15:45:54 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|clsearch|translatedQuery '(sprung OR jump OR jumping OR saltando OR saut OR salto OR sprong) AND (orange OR orange OR naranja OR orange OR arancia OR sinaasappel)'
+  Tue May 20 15:45:54 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|clsearch|query not found in DB, let's use Flickr's API
+  Tue May 20 15:45:55 2008|Other_user_12|u8ygLdcq7yGK121|playTime|time set on play mode
+  Tue May 20 15:45:56 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|clsearch|saved QueryCache
+  Tue May 20 15:45:56 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|clsearch|500 results retrieved from Flickr
+
+
+7) user asks for some hints:
+
+  Tue May 20 15:48:35 2008|U._Sheffield_user_5|6l4sFWVeK5ETXBi|getPhotoHint|1 hints showed for photo 363836021
+  Tue May 20 15:51:12 2008|U._Sheffield_user_5|6l4sFWVeK5ETXBi|getPhotoHint|2 hints showed for photo 363836021
+
+
+8) user finds her first image and wins 10 points (after having asked for some 
+hints). Score, precision and average time are updated accordingly.
+
+  Tue May 20 15:44:45 2008|U._Sheffield_user_5|6l4sFWVeK5ETXBi|log|click on found it 704702302: success
+  Tue May 20 15:44:45 2008|U._Sheffield_user_5|6l4sFWVeK5ETXBi|foundImg|photo 704702302 at 98.9274973869 secs
+  Tue May 20 15:44:45 2008|U._Sheffield_user_5|6l4sFWVeK5ETXBi|foundImg|score updated + 10: S:10 P:1.0 T:98.9274973869
+
+
+9) user gives up searching photo 7983304:
+
+  Tue May 20 15:49:47 2008|Chemnitz_/_Chemnitz__U._Tech_-_Comp.Sci_user_2|NjDh5AF2JXi05l5|giveUp|photo 7983304 at 104.460667133 secs 
+  Tue May 20 15:49:47 2008|Chemnitz_/_Chemnitz__U._Tech_-_Comp.Sci_user_2|NjDh5AF2JXi05l5|giveUp|score updated: S:0 P:0.0 T:0.0
+
+
+10) user fills in the questionnaire after giving up. Each question has a 
+numeric identifier. The mappings are specified below:
+
+  Tue May 20 15:49:47 2008|Chemnitz_/_Chemnitz__U._Tech_-_Comp.Sci_user_2|NjDh5AF2JXi05l5|log|giveUpQuestionnaire:0:false;1:false;2:false;3:false;4:false;5:true;comments:I can't recognize the animal in the image, because the thumb is to small and/or I'm so bad in biology.
+
+
+
+11) user clicks on target image and on one of the ranking images, respectively:
+
+  Tue May 20 15:49:46 2008|U._Sheffield_user_5|6l4sFWVeK5ETXBi|log|click on target image
+  Tue May 20 15:42:25 2008|U._Sheffield_user_5|6l4sFWVeK5ETXBi|log|click on image 503281509
+
+
+--------------
+ SOME REMARKS
+--------------
+
+Note that every time a query is launched, two indexes are specified, as in: 
+
+  Tue May 20 15:45:54 2008|MIRACLE_/_Spanish_Un_Consortium_user_1|s51DItDdyW81j2M|clsearch|launch query 'saltando naranja' (0:20)
+
+In this example, 0 denotes the position of the first item showed in the ranking, 
+and 20 denotes the number of total items showed in the current ranking. Thus, 
+0:20 corresponds to the first results page, containing 20 items, 20:20 
+corresponds to the second results page, 40:20 corresponds to the third page, 
+and so on.
+
+
+On one hand, when a user explictly switches between monolingual and cross-lingual 
+interfaces, a single message is shown, as in:
+
+  Thu May  1 11:37:06 2008|U.Padua_-_Linguistics_user_7|JKxfbnLaNDsj8eI|log|monolingual interface
+  
+or as in:
+
+  Tue May  6 09:44:36 2008|U.Padua_-_Linguistics_user_1|HueK4wP2n6XBdSo|log|cross-lingual interface
+  
+
+However, when the cross-lingual interface is re-loaded after a query has been 
+launched, both log messages are shown. Please consider only the last one, in 
+this case the user does NOT switch between interfaces:
+
+  Tue May  6 09:59:36 2008|U.Padua_-_Linguistics_user_1|HueK4wP2n6XBdSo|clsearch|saved QueryCache
+  Tue May  6 09:59:36 2008|U.Padua_-_Linguistics_user_1|HueK4wP2n6XBdSo|clsearch|49 results retrieved from Flickr
+  Tue May  6 09:59:36 2008|U.Padua_-_Linguistics_user_1|HueK4wP2n6XBdSo|log|monolingual interface
+  Tue May  6 09:59:36 2008|U.Padua_-_Linguistics_user_1|HueK4wP2n6XBdSo|log|cross-lingual interface
+
+
+Besides, due to the way the interface is rendered and how it communicates with 
+the logs manager, when the user logs in the system and the monolingual interface 
+is loaded, some messages related to target languages are shown. In this case, 
+please NOTE that this does NOT mean that the user has explicitly enabled any 
+languages (the target languages don't apply in the monolingual environment), 
+as in:
+
+  Tue May  6 11:35:54 2008|U.Padua_-_2_Linguistics_user_2||login2|success
+  Tue May  6 11:35:54 2008|U.Padua_-_2_Linguistics_user_2|bA2NbYQ0j72Iamh|getUserInfo|success
+  Tue May  6 11:35:56 2008|U.Padua_-_2_Linguistics_user_2|bA2NbYQ0j72Iamh|getTargetImg|magicnumber has ActiveSearch
+  Tue May  6 11:35:56 2008|U.Padua_-_2_Linguistics_user_2|bA2NbYQ0j72Iamh|log|enable target language 0
+  Tue May  6 11:35:56 2008|U.Padua_-_2_Linguistics_user_2|bA2NbYQ0j72Iamh|getTargetImg|time IS stopped
+  Tue May  6 11:35:56 2008|U.Padua_-_2_Linguistics_user_2|bA2NbYQ0j72Iamh|getTargetImg|success photoid 748420462
+  Tue May  6 11:35:57 2008|U.Padua_-_2_Linguistics_user_2|bA2NbYQ0j72Iamh|log|enable target language 1
+  Tue May  6 11:35:57 2008|U.Padua_-_2_Linguistics_user_2|bA2NbYQ0j72Iamh|log|enable target language 2
+  Tue May  6 11:35:58 2008|U.Padua_-_2_Linguistics_user_2|bA2NbYQ0j72Iamh|log|enable target language 3
+  Tue May  6 11:35:58 2008|U.Padua_-_2_Linguistics_user_2|bA2NbYQ0j72Iamh|log|enable target language 4
+  Tue May  6 11:35:58 2008|U.Padua_-_2_Linguistics_user_2|bA2NbYQ0j72Iamh|log|enable target language 5
+  Tue May  6 11:35:59 2008|U.Padua_-_2_Linguistics_user_2|bA2NbYQ0j72Iamh|log|monolingual interface
+
+
+Lastly, please notice that some messages have been re-build after the log file 
+got frozen in order to regularize the format and enrich the information. So, 
+there are about 30 log lines indicating that the photoid of a given search session is 
+**unknown**, as in the example below. These ones correspond to users that began 
+searching but didn't end their search sessions.
+
+  Fri Apr 25 18:47:34 2008|UNED_IA_user_1|pJiODhRDDHeCz7b|getTargetImg|new ActiveSearch created photoid **unknown**
+  Fri Apr 25 18:47:34 2008|UNED_IA_user_1|pJiODhRDDHeCz7b|getTargetImg|success photoid **unknown**
+
+
+----------------------
+ LANGUAGE IDENTIFIERS
+----------------------
+
+ 0: DE
+ 1: EN
+ 2: ES
+ 3: FR
+ 4: IT
+ 5: NL
+ 
+
+--------------------------------
+ POST-IMAGE FOUND QUESTIONNAIRE
+--------------------------------
+
+What problems did you encounter while searching for this image?
+
+  0: It was easy
+  1: It was hard because of the size of the image set
+  2: It was hard because the translations were bad
+  3: It was difficult to describe the image
+  4: It was hard because I didn't't know the language in which the image was annotated
+  5: It was hard because of the number of potential target languages
+  6: It was hard because I needed to translate the query
+
+
+-----------------------
+ GIVE UP QUESTIONNAIRE
+-----------------------
+
+Why are you giving up on this image?
+
+  0: There are too many images for my search
+  1: The translations provided by the system are not right
+  2: I can't find suitable keywords for this image
+  3: I have difficulties with the search interface
+  4: I just don't know what else to do
+  5: Other (please, comment below)
+  
+
+------------------------------------------------------------
+ FINAL QUESTIONNAIRE (shows up after having seen 15 images)
+------------------------------------------------------------
+  
+Before going on with the task, could you please take 5 minutes to fill in this questionnaire?
+
+  1: Do you need to search information in foreign languages in your daily life?
+    1A1: frequently
+    1A2: sometimes
+    1A3: rarely
+    1A4: never
+
+  2: Do you often use image search facilities?
+    2A1: frequently
+    2A2: sometimes
+    2A3: rarely
+    2A4: never
+
+  3: The search task you performed was:
+    3A: Clear
+      3A1: strongly agree
+      3A2: agree
+      3A3: disagree
+      3A4: strongly disagree
+      
+    3B: Easy
+      3B1: strongly agree
+      3B2: agree
+      3B3: disagree
+      3B4: strongly disagree
+
+    3C: Familiar
+      3C1: strongly agree
+      3C2: agree
+      3C3: disagree
+      3C4: strongly disagree
+      
+    3D: Interesting
+      3D1: strongly agree
+      3D2: agree
+      3D3: disagree
+      3D4: strongly disagree
+
+    3E: Relevant to you
+      3E1: strongly agree
+      3E2: agree
+      3E3: disagree
+      3E4: strongly disagree
+
+  4: Did you find multilingual search capabilities useful to find images in Flickr?
+      4A1: strongly agree
+      4A2: agree
+      4A3: disagree
+      4A4: strongly disagree
+
+  5: Would you now prefer to use a multilingual search facility for your own image searches?
+      5A1: strongly agree
+      5A2: agree
+      5A3: disagree
+      5A4: strongly disagree
+
+  6: Which, in your opinion, are the most challenging aspects of the task?
+    6A: Finding the correct terms to express an image in my own native language
+      6A1: strongly agree
+      6A2: agree
+      6A3: disagree
+      6A4: strongly disagree
+
+    6B: Selecting/finding appropriate translations for the terms in my query.
+      6B1: strongly agree
+      6B2: agree
+      6B3: disagree
+      6B4: strongly disagree
+
+    6C: Handling multiple target languages at the same time.
+      6C1: strongly agree
+      6C2: agree
+      6C3: disagree
+      6C4: strongly disagree
+
+    6D: Finding the target image in very large sets of results.
+      6D1: strongly agree
+      6D2: agree
+      6D3: disagree
+      6D4: strongly disagree
+
+  7: Which interface facilities did you find most useful?
+    7A: The automatic translation of query terms.
+      7A1: strongly agree
+      7A2: agree
+      7A3: disagree
+      7A4: strongly disagree
+      
+    7B: The possibility of improving the translations chosen by the system.
+      7B1: strongly agree
+      7B2: agree
+      7B3: disagree
+      7B4: strongly disagree
+
+    7C: The additional query terms suggested by the system ("You might also want to try with... ").
+      7C1: strongly agree
+      7C2: agree
+      7C3: disagree
+      7C4: strongly disagree
+
+    7D: The assistant to select new query terms from the set of results.
+      7D1: strongly agree
+      7D2: agree
+      7D3: disagree
+      7D4: strongly disagree
+
+  8: Which interface facilities did you miss?
+    8A: Detection and translation of multiword expressions.
+      8A1: strongly agree
+      8A2: agree
+      8A3: disagree
+      8A4: strongly disagree
+
+    8B: Bilingual dictionaries with a better coverage.
+      8B1: strongly agree
+      8B2: agree
+      8B3: disagree
+      8B4: strongly disagree
+
+    8C: A system able to select the translations for my query terms better.
+      8C1: strongly agree
+      8C2: agree
+      8C3: disagree
+      8C4: strongly disagree
+
+    8D: More support to decide what the possible translations mean and therefore which ones are really appropriate.
+      8D1: strongly agree
+      8D2: agree
+      8D3: disagree
+      8D4: strongly disagree
+
+    8E: The possibility to search according to visual features of the images ("search images that look like this", "search only B/W images", "search only for dark images", etc.).
+      8E1: strongly agree
+      8E2: agree
+      8E3: disagree
+      8E4: strongly disagree
+
+    8F: The classification of search results in different tabs according to the image caption language(s).
+      8F1: strongly agree
+      8F2: agree
+      8F3: disagree
+      8F4: strongly disagree
+
+    8G: An advanced search mode giving more control on how Flickr is queried.
+      8G1: strongly agree
+      8G2: agree
+      8G3: disagree
+      8G4: strongly disagree
+
+    8H: Other (specify)
+
+  9: How did you select/find the best translations for your query terms?
+    9A: Using my knowledge of target languages whenever possible.
+      9A1: frequently
+      9A2: sometimes
+      9A3: rarely
+      9A4: never
+
+    9B: Using additional dictionaries and other online sources.
+      9B1: frequently
+      9B2: sometimes
+      9B3: rarely
+      9B4: never
+
+    9C: I did not pay attention to the translations, I just trusted the system.
+      9C1: frequently
+      9C2: sometimes
+      9C3: rarely
+      9C4: never
+
+    9D: Other (specify)
+    
+  comments:
+  
+
