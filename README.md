@@ -1,5 +1,7 @@
 # iCLEF: Interactive Cross Language Evaluation Forum
 
+[![Join the chat at https://gitter.im/vitojph/iclef](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/vitojph/iclef?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [iCLEF](http://nlp.uned.es/iCLEF) is the interactive track of CLEF (Cross-Language Evaluation Forum), an 
 annual evaluation exercise for Multilingual Information Access systems. In
 iCLEF, Cross-Language search capabilities are studied from a user-inclusive
